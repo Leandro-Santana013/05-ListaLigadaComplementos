@@ -70,7 +70,7 @@ void menu()
 
 void inicializar()
 {
-	// se a lista j� possuir elementos
+	// se a lista já possuir elementos
 // libera a memoria ocupada
 	NO* aux = primeiro;
 	while (aux != NULL) {
@@ -115,29 +115,46 @@ void exibirElementos()
 void inserirElemento()
 {
 	// aloca memoria dinamicamente para o novo elemento
-	NO* novo = (NO*)malloc(sizeof(NO));
-	if (novo == NULL)
-	{
-		return;
-	}
+NO* novo = (NO*)malloc(sizeof(NO));
+if (novo == NULL)
+{
+	cout << "Erro ao alocar memória!" << endl;
+	return;
+}
 
-	cout << "Digite o elemento: ";
-	cin >> novo->valor;
-	novo->prox = NULL;
 
-	if (primeiro == NULL)
-	{
-		primeiro = novo;
-	}
-	else
-	{
-		// procura o final da lista
-		NO* aux = primeiro;
-		while (aux->prox != NULL) {
-			aux = aux->prox;
-		}
-		aux->prox = novo;
-	}
+if (primeiro == NULL)
+{
+	primeiro = novo;
+}
+
+
+cout << "Digite o elemento: ";
+cin >> novo->valor;
+novo->prox = NULL;
+
+NO* anterior = NULL;
+NO* atual = primeiro;
+
+while (atual != NULL && atual->valor < novo->valor) {
+	anterior = atual;
+	atual = atual->prox;
+}
+
+if (atual != NULL && atual->valor == novo->valor) {
+	cout << "O numero já foi inserido";
+	free(novo);
+	return;
+}
+	
+if (anterior == NULL) {
+	novo->prox = primeiro;
+	primeiro = novo;
+}
+else {
+	anterior->prox = novo;
+	novo->prox = atual;
+}
 }
 
 void excluirElemento()
@@ -147,7 +164,30 @@ void excluirElemento()
 
 void buscarElemento()
 {
+	int n;
+cout << "digite o numero que deseja buscar";
+cin >> n;
+NO* aux = primeiro;
 
+if (aux->valor = NULL) {
+	cout << "lista vazia\n";
+	return;
+}
+
+while (aux != NULL) {
+
+	if (aux->valor == n) {
+		cout << "Encontrado\n";
+		return;
+	}
+	if (aux->valor > n) {
+		cout << "Elemento não Encontrado\n";
+		return;
+	}
+	aux = aux->prox;
+}
+
+cout << "Elemento não Encontrado\n";
 }
 
 
