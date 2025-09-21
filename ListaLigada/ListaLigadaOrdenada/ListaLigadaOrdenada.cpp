@@ -159,7 +159,29 @@ else {
 
 void excluirElemento()
 {
+int n;
+cout << "digite o numero que deseja cin";
+cin >> n;
 
+
+NO* anterior = NULL;
+NO* atual = primeiro;
+
+while (atual != NULL && atual->valor < n) {
+	anterior = atual;
+	atual = atual->prox;
+}
+if (atual == NULL || atual->valor != n) {
+	cout << "Elemento não encontrado\n";
+	return;
+}
+if (anterior == NULL) {
+	primeiro = atual->prox;
+}
+else {
+	anterior->prox = atual->prox;
+}
+free(atual);
 }
 
 void buscarElemento()
